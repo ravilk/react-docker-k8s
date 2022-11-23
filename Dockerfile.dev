@@ -1,0 +1,16 @@
+FROM node:16-alpine
+
+# Set working folder inside of container
+WORKDIR '/app'
+
+# Copy files from current host folder to container WORKDIR
+COPY package.json .
+
+# Install all dependecies
+RUN npm install
+
+# Copy all files from current host folder to container WORKDIR
+COPY . .
+
+# Run command to start npm project
+CMD ["npm", "run", "start"]

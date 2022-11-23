@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:                              # Set the name for your service
+    build:                          # Build a new image from current '.' folder or specify folder in the 'context:' section
+      # context: ./config           # Here is we specify the path for the files and folder that we want to pull to our container
+      context: .                    # Look for the current folder for the files and folder that we want to pull to our container 
+      dockerfile: Dockerfile.dev    # Use specific Dockerfile in the folder mentioned above in the 'context' section
+    ports:
+      - "3000:3000"                 # Port mapping to access to the Web outiside of container network
+    volumes:
+      - /app/node_modules           # Here we specify a container's folder that WON'T be mapped with anything. This is the folder that will be managed by container and populated with data by software
+      - .:/app                      # Map ':' current folder '.' with '/app' folder inside of container, so docker will copy everything from current folder '.' to the container's '/app' folder 
+  tests:                            # Second service with name - 'test'
+      build:
+        context: .
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /app/node_modules
+        - .:/app
+      command: ["npm","run","test"] # Here we replace a command mentioned in Dockerfile.dev to our custom version
+
