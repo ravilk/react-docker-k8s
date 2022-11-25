@@ -6,7 +6,9 @@ before_install:
   - docker build -t ravilkhalilov/docker-react -f Dockerfile.dev .    # Build docker image with tag 'ravilkhalilov/docker-react' using Dockerfile.dev located in current folder '.'
 
 script:
-  - docker run -e CI=true ravilkhalilov/docker-react npm run test -- --coverage # What should be executed within our docker images
+  - docker run -e CI=true ravilkhalilov/docker-react npm run test # What should be executed within our docker images
+
+language: generic
 
 deploy:
   provider: elasticbeanstalk                                # Provider to deploy docker image with our App
