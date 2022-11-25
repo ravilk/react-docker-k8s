@@ -7,8 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-         Docker is awesome! Learn Docker + Kubernetes + Databases!
-         Cloud Computing, Kubernetes and Distributed Databases are the future of IT industry!
+         This was changed on the Feature branch!
         </p>
         <a
           className="App-link"
