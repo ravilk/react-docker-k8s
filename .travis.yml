@@ -3,7 +3,7 @@ services:                                                  # Install Docker Engi
   - docker
 
 before_install: 
-  - docker build -t ravilkhalilov/docker-react -f Dockerfile.dev .    # Build docker image with tag 'ravilkhalilov/docker-react' using Dockerfile.dev located in current folder '.'
+  - docker build -t ravilkhalilov/docker-react -f Dockerfile .    # Build docker image with tag 'ravilkhalilov/docker-react' using Dockerfile.dev located in current folder '.'
 
 script:
   - docker run -e CI=true ravilkhalilov/docker-react npm run test -- --coverage # What should be executed within our docker images
