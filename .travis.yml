@@ -1,23 +1,22 @@
-sudo: required
-services:
+sudo: required                                             # sudo permission required for successfully installing Docker Engine into ElasticBeansTalk VM that will handle our APP
+services:                                                  # Install Docker Engine into ElasticBeansTalk VM that will handle our APP
   - docker
 
 before_install: 
-  - docker build -t ravilkhalilov/docker-react -f Dockerfile.dev .
+  - docker build -t ravilkhalilov/docker-react -f Dockerfile.dev .    # Build docker image with tag 'ravilkhalilov/docker-react' using Dockerfile.dev located in current folder '.'
 
 script:
-  - docker run -e CI=true ravilkhalilov/docker-react npm run test -- --coverage
+  - docker run -e CI=true ravilkhalilov/docker-react npm run test -- --coverage # What should be executed within our docker images
 
 deploy:
-  provider: elasticbeanstalk
-  region: "us-east-1"
-  app: "docker-react"
-  env: "Dockerreact-env"
-  bucket_name: "elasticbeanstalk-us-east-1-289483554334"
-  bucket_path: "docker-react"
+  provider: elasticbeanstalk                                # Provider to deploy docker image with our App
+  region: "us-east-1"                                       # 
+  app: "docker-react"                                       # Name of your App in ElasticBeansTalk
+  env: "Dockerreact-env"                                    # Env name from ElasticBeansTalk
+  bucket_name: "elasticbeanstalk-us-east-1-289483554334"    # S3 bucket will be created automatically while deploying new App in ElasticBeansTalk
+  bucket_path: "docker-react"                               # Should be the same name as App in ElasticBeansTalk
   on:
-    branch: main
-
-  access_key_id: $aws_access_key
-  secret_access_key: "$aws_secret_key"
+    branch: main                                            # Deploy App to Production only when changes are commited into main branch. Don't deploy changes made in other branches
+  access_key_id: "$aws_access_key"                          # Access Key for AWS IAM User that have FULL access to ElasticBeansTalk. This ENV Variable must be set in Travis CI settings for your repository
+  secret_access_key: "$aws_secret_key"                      # Secret Key for AWS IAM User that have FULL access to ElasticBeansTalk. This ENV Variable must be set in Travis CI settings for your repository
 

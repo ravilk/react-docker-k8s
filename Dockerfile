@@ -21,6 +21,9 @@ CMD ["npm", "run", "build"]
 ################# Start of 'runner' section #################
 FROM nginx as runner
 
+# Expose listening port to extrenal service
+EXPOSE 80
+
 # We need to copy files/folders from another phase. 
 # In our case we will:
 # Copy folder '/app/build' from prevous(above) phase => 'builder', to the '/usr/share/nginx/html' directory in our nginx container
